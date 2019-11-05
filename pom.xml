@@ -15,7 +15,7 @@
 
 	<modules>
 		<module>common-tool</module>
-		<!--<module>kxy-webapi</module>-->
+		<module>demo1</module>
 	</modules>
 
 	<!--配置maven项目的远程仓库-->
