@@ -1,6 +1,6 @@
 #端口
 server:
-  port: 9501
+  port: 8080
 #  max-http-header-size: 10000000
 
 spring:
@@ -8,7 +8,7 @@ spring:
   profiles:
     include:
       - druid
-      - redis
+#      - redis
       - mybatis
 
 
