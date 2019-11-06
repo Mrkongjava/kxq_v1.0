@@ -1,10 +1,11 @@
-package com.group.common;
+package com.group.demo1;
 
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CommonToolApplicationTests {
+class Demo1ApplicationTests {
 
     @Test
     void contextLoads() {

@@ -1,0 +1,68 @@
+spring:
+  ##数据库连接信息
+  datasource:
+    url: jdbc:oracle:thin:@172.28.1.70:1521:gzcp
+    username: OTO_TEST
+    password: OTO_TEST
+#    url: jdbc:oracle:thin:@10.201.29.26:1521:ems
+#    username: oto
+#    password: oto
+    driver-class-name: oracle.jdbc.OracleDriver
+    ###################以下为druid增加的配置###########################
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 50
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙，此处是filter修改的地方
+      filters:
+        commons-log.connection-logger-name: stat,wall,log4j
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      # 合并多个DruidDataSource的监控数据
+      useGlobalDataSourceStat: true
+      # 配置监控服务器
+      stat-view-servlet:
+        login-username: admin
+        login-password: sdgs2018
+        url-pattern: /druid/*
+        #添加ip白名单
+        allow:
+        #黑名单，黑白名单有重复，黑优先级高
+        #deny:
+        #  禁用HTML页面上的“Reset All”功能
+        reset-enable: true
+        # 必须启用，要不会404
+        enabled: true
+      web-stat-filter:
+        #添加过滤规则
+        url-pattern: /*
+        #忽略过滤格式
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico"
+        enabled: true
+      async-close-connection-enable: true
+#      aop-patterns: com.sswchat.o2o.*
+      filter:
+        stat:
+          db-type: oracle
+          log-slow-sql: true
+          slow-sql-millis: 2000
+          enabled: true
+
+
+

@@ -1,0 +1,15 @@
+#端口
+server:
+  port: 9501
+#  max-http-header-size: 10000000
+
+spring:
+  #引入其他配置文件，格式:application-{xxx}.yml
+  profiles:
+    include:
+      - druid
+      - redis
+      - mybatis
+
+
+
