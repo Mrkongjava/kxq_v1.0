@@ -26,9 +26,9 @@
         </dependency>
 
         <dependency>
-            <groupId>thirdpart</groupId>
-            <artifactId>ojdbc</artifactId>
-            <version>6</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>2.3</version>
         </dependency>
 
     </dependencies>

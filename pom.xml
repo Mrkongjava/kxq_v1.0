@@ -19,18 +19,18 @@
 	</modules>
 
 	<!--配置maven项目的远程仓库-->
-	<repositories>
-		<repository>
-			<id>spring-releases</id>
-			<url>https://repo.spring.io/libs-release</url>
-		</repository>
-	</repositories>
+	<!--<repositories>-->
+		<!--<repository>-->
+			<!--<id>spring-releases</id>-->
+			<!--<url>https://repo.spring.io/libs-release</url>-->
+		<!--</repository>-->
+	<!--</repositories>-->
 	<!--配置maven插件的远程仓库-->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-releases</id>
-			<url>https://repo.spring.io/libs-release</url>
-		</pluginRepository>
-	</pluginRepositories>
+	<!--<pluginRepositories>-->
+		<!--<pluginRepository>-->
+			<!--<id>spring-releases</id>-->
+			<!--<url>https://repo.spring.io/libs-release</url>-->
+		<!--</pluginRepository>-->
+	<!--</pluginRepositories>-->
 
 </project>
