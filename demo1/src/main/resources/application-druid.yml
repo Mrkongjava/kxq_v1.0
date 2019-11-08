@@ -1,13 +1,10 @@
 spring:
   ##数据库连接信息
   datasource:
-    url: jdbc:oracle:thin:@172.28.1.70:1521:gzcp
-    username: OTO_TEST
-    password: OTO_TEST
-#    url: jdbc:oracle:thin:@10.201.29.26:1521:ems
-#    username: oto
-#    password: oto
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:mysql://47.107.134.129:3306/mp?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+    username: root
+    password: KeYpZrZx
+    driver-class-name: com.mysql.cj.jdbc.Driver
     ###################以下为druid增加的配置###########################
     type: com.alibaba.druid.pool.DruidDataSource
     # 下面为连接池的补充设置，应用到上面所有数据源中
@@ -36,7 +33,7 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       # 合并多个DruidDataSource的监控数据
       useGlobalDataSourceStat: true
-      # 配置监控服务器
+      # 配置监控服务器，登录页：http://localhost:8080/druid
       stat-view-servlet:
         login-username: admin
         login-password: sdgs2018

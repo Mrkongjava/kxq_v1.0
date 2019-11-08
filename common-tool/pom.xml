@@ -21,8 +21,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <mybatis-plus.version>3.1.2</mybatis-plus.version>
+        <mybatis-plus.version>2.3</mybatis-plus.version>
         <mysql.version>8.0.15</mysql.version>
+        <json.version>1.2.12</json.version>
+        <druid.version>1.1.13</druid.version>
 
         <minio.version>6.0.2</minio.version>
         <velocity.version>1.7</velocity.version>
@@ -46,19 +48,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>com.baomidou</groupId>-->
-            <!--<artifactId>mybatis-plus-boot-starter</artifactId>-->
-            <!--<version>${mybatis-plus.version}</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;mybatis plus extension,包含了mybatis plus core&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>com.baomidou</groupId>-->
-            <!--<artifactId>mybatis-plus-extension</artifactId>-->
-            <!--<version>${mybatis-plus.version}</version>-->
-        <!--</dependency>-->
-
         <!--mybatis-->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -80,11 +69,18 @@
             <version>${mysql.version}</version>
         </dependency>
 
-        <!--数据库连接池-->
+        <!--数据库连接池，版本不能过高，否则会出现登录页404-->
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.12</version>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+
+        <!--redisson-->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.10.1</version>
         </dependency>
 
         <!--代码精简工具-->
@@ -98,6 +94,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <!--<scope>test</scope>-->
+        </dependency>
+
+        <!--json-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${json.version}</version>
         </dependency>
 
     </dependencies>

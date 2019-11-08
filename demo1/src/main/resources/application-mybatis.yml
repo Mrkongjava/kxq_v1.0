@@ -1,0 +1,28 @@
+mybatis-plus:
+  # 扫描mapper.xml文件
+  mapper-locations: classpath:/mapper/**Mapper.xml
+  # 扫描实体类
+  typeAliasesPackage: com.group.demo1.entity
+  # 主键类型
+  global-config:
+    # 关闭MP3.0自带的banner
+    banner: false
+    #0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";配置后可以不用使用 @TableId指定主键
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 0
+    #驼峰下划线转换，设置完成后就可以不使用 @TableName指定字段名
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    capital-mode: true
+    #逻辑删除配置，0 没删除，1已删除
+#    logic-delete-value: 1
+#    logic-not-delete-value: 0
+
+  #原生配置
+  configuration:
+    map-underscore-to-camel-case: true  #开启驼峰命名
+    cache-enabled: true #是否开启二级缓存
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印sql，上线后屏蔽掉

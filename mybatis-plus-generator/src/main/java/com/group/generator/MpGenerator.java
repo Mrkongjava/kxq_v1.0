@@ -80,7 +80,7 @@ public class MpGenerator {
                 .setMapper("mapper")
                 .setService("service")
                 .setController("controller")
-                .setEntity("beans")
+                .setEntity("entity")
                 .setXml("mapper");
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】
