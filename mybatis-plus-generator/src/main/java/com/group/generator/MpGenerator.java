@@ -21,20 +21,20 @@ public class MpGenerator {
         //1. 全局配置
         GlobalConfig config = new GlobalConfig();
         config.setActiveRecord(true) // 是否支持AR模式
-                .setAuthor("weiyunhui") // 作者
+                .setAuthor("kxq") // 作者
                 .setOutputDir("/daima") // 生成路径
                 .setFileOverride(true)  // 文件覆盖
                 .setIdType(IdType.AUTO) // 主键策略
-                .setServiceName("%sService")  // 设置生成的service接口的名字的首字母是否为I(如 IEmployeeService）
                 .setBaseResultMap(true) //xml ResultMap
                 .setBaseColumnList(true)//xml columList
                 .setEnableCache(false)// XML 二级缓存
                 //自定义文件命名 %s 表示生成代码时用表名代替
-                .setMapperName("%sMapper")
-                .setXmlName("%sXml")
-                .setServiceName("I%sService")
-                .setServiceImplName("%sServiceImpl")
-                .setControllerName("%sController");
+//                .setMapperName("%sMapper")
+//                .setXmlName("%sXml")
+//                .setServiceName("I%sService") //设置生成的service接口的名字的首字母是否为I(如 IEmployeeService）
+//                .setServiceImplName("%sServiceImpl")
+//                .setControllerName("%sController")
+                    ;
 
         //2. 数据源配置
         DataSourceConfig dsConfig = new DataSourceConfig();
@@ -60,7 +60,7 @@ public class MpGenerator {
                 .setDbColumnUnderline(true)  // 指定表名 字段名是否使用下划线
                 .setNaming(NamingStrategy.underline_to_camel) // 数据库表映射到实体的命名策略
                 .setTablePrefix("tbl_") //设置表前缀，表示将表去掉该前缀再生成对应类名
-//                .setInclude("tbl_employee")// 设置需要生成的表，多个以逗号分隔；默认生成所有表
+                .setInclude("tbl_employee")// 设置需要生成的表，多个以逗号分隔；默认生成所有表
 //                .setExclude("表名xxx", "表名xxx2")//设置排除生成的表
 //                .setSuperEntityClass("全类名")//自定义实体继承的父类
 //                .setSuperEntityColumns(new String[]{"test_id", "age"})//自定义类的公共字段
