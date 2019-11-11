@@ -1,8 +1,6 @@
 server:
   port: 8080
 #  max-http-header-size: 10000000
-  aop:
-    proxy-target-class: true
 
 spring:
   #引入其他配置文件，格式:application-{xxx}.yml

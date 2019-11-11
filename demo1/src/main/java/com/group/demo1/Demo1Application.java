@@ -10,12 +10,11 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @MapperScan("com.group.demo1.mapper")
 @ComponentScan(basePackages = {"com.group"})
-@EnableTransactionManagement
+//@EnableTransactionManagement
 @EnableAsync
 @EnableCaching
 @EnableScheduling

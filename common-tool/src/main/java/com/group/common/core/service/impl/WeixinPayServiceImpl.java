@@ -43,15 +43,9 @@ public class WeixinPayServiceImpl implements WeixinPayService {
     @Value("${xcx.apiKey}")
     private String xcx_apiKey;
 
-    @Value("${spring.profiles.active}")
-    private String profiles;
-
 
     @Override
     public Map<String, Object> unifiedorder(String body, String outTradeNo, int orderPrice, String notifyUrl, String spbillCreateIp, String tradeType, String openid) throws Exception{
-        if("dev".equals(profiles)){
-            orderPrice = 1;
-        }
 
         String param = "";
         if("APP".equals(tradeType)){
@@ -115,10 +109,6 @@ public class WeixinPayServiceImpl implements WeixinPayService {
 
     @Override
     public Map<String, String> refund(String outTradeNo, String outRefundNo, int totalFee, int refundFee, String notifyUrl, String tradeType) throws Exception{
-        if("dev".equals(profiles)){
-            totalFee = 1;
-            refundFee = 1;
-        }
 
         String result = null;
         if("JSAPI".equals(tradeType)){
