@@ -1,0 +1,6 @@
+#七牛云（云存储）
+qiniu:
+  ak: Dt1IZx-u6LAeIPvMBUjJRRqzexuoSeN29XU2YfEP
+  sk: f9escju-MNPaOkiKGfn6rFeaTX8UXm4_kqz98Nmk
+  bucket: diarybeforemarriage
+  cdn: http://image.xiangqinriji.com/

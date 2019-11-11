@@ -1,9 +1,12 @@
 package com.group.common.utils.ValidateCode;
 
+import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Random;
 
 public class ValidateCode1 {
@@ -50,6 +53,12 @@ public class ValidateCode1 {
 
     public Integer getCode() {
         return code;
+    }
+
+    public void write(OutputStream out) throws IOException {
+        ImageIO.write(image, "JPEG", out);
+        out.flush();
+        out.close();
     }
 
 //    //检查验证码

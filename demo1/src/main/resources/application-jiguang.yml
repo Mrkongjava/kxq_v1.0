@@ -1,0 +1,29 @@
+#激光推送
+projectName: 相亲日记
+appKey: 2e72531c57f0a6330646d2d5
+masterSecret: c1e8bc2d2b22b45e116ce5c4
+
+#容云
+ry:
+  appKey: m7ua80gbmoymm
+  appSecret: yz9cTEXt4s
+
+#微信公众号
+gzh:
+  appid: xxx
+  secret: xxxxxx
+  mchid: xxx
+  apiKey: xxx
+
+  #微信小程序
+xcx:
+  appid: xxx
+  secret: xxx
+  mchid: xxx
+  apiKey: xxx
+
+  #微信app支付
+app:
+  appid: wxbbe4f3bd3934bd01
+  mchid: 1493345252
+  apiKey: 256235486qhkuolkjsjpq128635489er

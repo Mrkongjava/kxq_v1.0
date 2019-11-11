@@ -1,6 +1,8 @@
 server:
   port: 8080
 #  max-http-header-size: 10000000
+  aop:
+    proxy-target-class: true
 
 spring:
   #引入其他配置文件，格式:application-{xxx}.yml
@@ -9,6 +11,9 @@ spring:
       - druid
       - redis
       - mybatis
+      - alibaba
+      - qiniu
+      - jiguang
   # jackson时间格式化
 #  jackson:
 #    time-zone: GMT+8
@@ -21,7 +26,11 @@ spring:
 
 
 
-
+#定时器自动启动
+org:
+  quartz:
+    scheduler:
+      AutoStartup: false
 
 
 
