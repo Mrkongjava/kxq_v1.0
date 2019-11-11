@@ -62,7 +62,7 @@ public class CommonController extends BaseController {
      * @return
      */
     @RequestMapping("/checkVerifyCode")
-    @ActionAnnotation(params={"phone","code"}, encrypt = false)
+    @ActionAnnotation(params={"phone","code"})
     public void checkVerifyCode(HttpServletRequest request,HttpServletResponse response){
 
         @SuppressWarnings("unchecked")
@@ -77,6 +77,8 @@ public class CommonController extends BaseController {
         if (!code.equals(value)){
             throw new ServiceException("2000","验证码有误，请刷新或重新输入");
         }
+        stringRedisTemplate.delete(phone + "Login");
+
         renderJson(request,response,SysCode.SUCCESS,"");
     }
 
