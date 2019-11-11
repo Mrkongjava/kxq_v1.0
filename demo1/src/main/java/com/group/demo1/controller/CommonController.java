@@ -36,9 +36,9 @@ public class CommonController extends BaseController {
      * @return
      */
     @RequestMapping("/getValidateCode")
-    public String getValidateCode(HttpServletResponse response,/**@RequestParam(defaultValue = "123456789")*/ String phone)throws Exception{
+    public String getValidateCode(HttpServletResponse response,String phone)throws Exception{
 
-//        Assert.hasLength(phone, "phone不能为空");
+        Assert.hasLength(phone, "phone不能为空");
 
         ValidateCode validateCode = new ValidateCode();
         validateCode.createCode();

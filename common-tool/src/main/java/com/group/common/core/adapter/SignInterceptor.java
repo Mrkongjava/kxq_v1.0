@@ -40,9 +40,16 @@ public class SignInterceptor extends HandlerInterceptorAdapter {
         String remortIP = getRemortIP(request);
         logger.info(String.format("请求参数, url: %s, method: %s, uri: %s, params: %s, remortIP: %s", url, method, uri, queryString, remortIP));
 
-        Method methods = ((HandlerMethod)handler).getMethod();
-        ActionAnnotation annotation = methods.getAnnotation(ActionAnnotation.class);
-        if(annotation==null) {
+        ActionAnnotation annotation = null;
+        if (handler instanceof HandlerMethod) {
+            //访问非静态资源
+            Method methods = ((HandlerMethod)handler).getMethod();
+            annotation = methods.getAnnotation(ActionAnnotation.class);
+            if(annotation==null) {
+                return true;
+            }
+        } else {
+            //访问静态资源
             return true;
         }
 

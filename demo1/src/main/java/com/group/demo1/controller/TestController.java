@@ -1,11 +1,13 @@
 package com.group.demo1.controller;
 
+import com.group.common.core.annotation.ActionAnnotation;
 import com.group.common.core.exception.ServiceException;
 import com.group.demo1.service.impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +25,8 @@ public class TestController {
     private StringRedisTemplate stringRedisTemplate;//也可以使用 RedisTemplate
 
     @RequestMapping("/test")
-//    @ResponseBody
+    @ResponseBody
+    @ActionAnnotation(params={"phone"})
     public String test(HttpServletResponse response){
 
 //        Logger logger = LoggerFactory.getLogger(TestController.class);
@@ -37,8 +40,7 @@ public class TestController {
 //        stringRedisTemplate.opsForValue().set("token","123456");
 //        String token = stringRedisTemplate.opsForValue().get("token");
 //        logger.info("token:{}",token);
-        throw new ServiceException("2000","统一异常处理");
 
-//        return "HelloWord";
+        return "HelloWord";
     }
 }
