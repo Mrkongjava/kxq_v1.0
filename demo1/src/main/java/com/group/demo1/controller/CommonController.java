@@ -4,7 +4,7 @@ import com.group.common.core.annotation.ActionAnnotation;
 import com.group.common.core.commons.SysCode;
 import com.group.common.core.controller.BaseController;
 import com.group.common.core.exception.ServiceException;
-import com.group.common.utils.ValidateCode.ValidateCode;
+import com.group.common.utils.validateCode.ValidateCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;

@@ -15,7 +15,8 @@ public class CustomWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
 
 	@Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new SignInterceptor()).addPathPatterns("/**");  //对来自/user/** 这个链接来的请求进行拦截
+		//  /** 拦截所有请求
+        registry.addInterceptor(new SignInterceptor()).addPathPatterns("/**");
     }
 
 	@Override

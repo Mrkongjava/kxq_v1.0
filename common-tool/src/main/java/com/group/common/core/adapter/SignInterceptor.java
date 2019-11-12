@@ -30,8 +30,7 @@ public class SignInterceptor extends HandlerInterceptorAdapter {
 	Logger logger = LoggerFactory.getLogger(SignInterceptor.class);
 
 	@Override
-	public boolean preHandle(HttpServletRequest request,
-                             HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String url = request.getRequestURL().toString();
         String method = request.getMethod();
@@ -49,7 +48,7 @@ public class SignInterceptor extends HandlerInterceptorAdapter {
                 return true;
             }
         } else {
-            //访问静态资源
+            //访问静态资源,不进行拦截
             return true;
         }
 

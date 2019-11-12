@@ -1,4 +1,4 @@
-package com.group.common.utils.ValidateCode;
+package com.group.common.utils.validateCode;
 
 import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;

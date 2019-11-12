@@ -1,6 +1,5 @@
 package com.group.common.utils.encryption;
 
-
 import java.util.Random;
 
 public class EncryptionUtil {
@@ -94,11 +93,15 @@ public class EncryptionUtil {
 	
 	public static void main(String[] args) {
 
-        System.out.println(getRandom(17));
-//		System.out.print(EncryptionUtil.encodeContent("[{\"custOrderId\":\"O201803231118580003\",\"pickupFailReason\":\"省行政区划代码为空或超长\",\"pickupStatus\":\"4\",\"expressNbr\":\"\"}]", "a7cc6c5acf497f8cec13fd9004fcbadf"));
-//		System.out.print(EncryptionUtil.decodeContent(EncryptionUtil.encodeContent("我的好")));
-//		String decodeContent = EncryptionUtil.decodeContent("11EE7AE1E89685F1F6F64ED59381E3B4104D73781D8BA097BF997F925396F4BB8A5008CDED16D2A1505820D772C84C36561549838A090CA30C3D15A6EAFB5F6C9941676AB4A5309E87F230125D236865");
-//		System.out.println(decodeContent);
+//        System.out.println(getRandom(16));
+
+		String a ="[{\"custOrderId\":\"O201803231118580003\",\"pickupFailReason\":\"省行政区划代码为空或超长\",\"pickupStatus\":\"4\",\"expressNbr\":\"\"}]";
+		System.out.println("原文：" + a);
+		String b = EncryptionUtil.encodeContent(a, "a7cc6c5acf497f8cec13fd9004fcbadf");
+		System.out.println("加密：" + b);
+		String c = EncryptionUtil.decodeContent(b,"a7cc6c5acf497f8cec13fd9004fcbadf");
+		System.out.print("解密：" + c);
+
 
 	}
 }

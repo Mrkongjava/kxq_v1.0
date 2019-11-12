@@ -109,8 +109,18 @@ public class AESUtil {
     }
     
      public static void main(String[] args) {
-    	 String aaa = "6665FDA4930B353BF8DA7A07BCADC997D26FE4C2EC26A6D4E6CF568815960DC23D5A3512F62A14234081E526FF2ADA78AC90D19F095AED7560AE6AC21EC8FFA3148CB226560B4708C0714372618016A8F070876D0B4361505B4E6BE2123944587D670A892B9C023A16D92095DF3554DD";
-    	 System.out.println(decrypt(aaa, "a7cc6c5acf497f8cec13fd9004fcbadf"));
+
+		 String bbb = "3166600569216507[{\"XRSJ\":1499822595493,\"SBYY\":\"订单号为空\",\"ZT\":\"1\"}]65DE43A1BC20E32C28BF6F7A2C462863";
+		 System.out.println("原文：" + bbb);
+
+		 //加密
+		 String ccc = encrypt(bbb,"a7cc6c5acf497f8cec13fd9004fcbadf");
+		 System.out.println("加密：" + ccc);
+
+		 //解密
+    	 String aaa = decrypt(ccc, "a7cc6c5acf497f8cec13fd9004fcbadf");
+    	 System.out.println("解密：" + aaa);
+
 	}
 
 }
