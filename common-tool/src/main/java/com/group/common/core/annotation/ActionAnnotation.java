@@ -26,4 +26,8 @@ public @interface ActionAnnotation {
     boolean encrypt() default false;    //是否加密
     
     String[] params() default {};       //请求参数
+
+    //限流操作
+    int seconds() default 0;//时间范围，单位秒
+    int maxCount() default  0;//时间范围内最多访问次数
 }

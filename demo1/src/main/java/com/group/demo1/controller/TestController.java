@@ -1,7 +1,6 @@
 package com.group.demo1.controller;
 
 import com.group.common.core.annotation.ActionAnnotation;
-import com.group.common.core.exception.ServiceException;
 import com.group.demo1.service.impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -26,7 +25,7 @@ public class TestController {
 
     @RequestMapping("/test")
     @ResponseBody
-    @ActionAnnotation(params={"phone"})
+    @ActionAnnotation(params={"phone"},seconds = 15,maxCount = 5)
     public String test(HttpServletResponse response){
 
 //        Logger logger = LoggerFactory.getLogger(TestController.class);
@@ -42,5 +41,11 @@ public class TestController {
 //        logger.info("token:{}",token);
 
         return "HelloWord";
+    }
+
+    public static void main(String[] args) {
+        String str = "112";
+        int a = str.indexOf(":");
+        System.out.println(a);
     }
 }

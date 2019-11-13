@@ -7,6 +7,7 @@ import com.group.common.core.exception.ServiceException;
 import com.group.common.utils.SignUtils;
 import com.group.common.utils.SpringUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.util.Base64Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 签名拦截器
@@ -56,6 +58,8 @@ public class SignInterceptor extends HandlerInterceptorAdapter {
         ActionAnnotation.Type type = annotation.check();
         String name = annotation.name();
         String[] paramKey = annotation.params();
+        int seconds = annotation.seconds();
+        int maxCount = annotation.maxCount();
         
         Map<String, String> params = new HashMap<String, String>();
         for (int i = 0; i < paramKey.length; i++) {
@@ -69,6 +73,30 @@ public class SignInterceptor extends HandlerInterceptorAdapter {
                 logger.info("【warn-- the key:" + paramKey[i] + " is empty or is null!】");
             }
         }
+
+        //根据ip限流
+        if (seconds != 0 && maxCount != 0){
+
+            String requestKey = "";
+            if (remortIP.indexOf(":")>0){
+                requestKey = "current-limiting:" + Base64Util.encode(remortIP);
+            }else {
+                requestKey = "current-limiting:" + remortIP;
+            }
+
+            RedisTemplate redisTemplate = (RedisTemplate) SpringUtil.getBean("redisTemplate");
+            Object count = redisTemplate.opsForValue().get(requestKey);
+
+            if(count  == null) {
+                redisTemplate.opsForValue().set(requestKey,1,seconds, TimeUnit.SECONDS);
+            }else if((int)count < maxCount) {
+                redisTemplate.opsForValue().increment(requestKey);
+            }else {
+                throw new ServiceException("1001","系统繁忙，请稍后访问");
+            }
+        }
+
+
 
         //参数签名
         if(encrypt){
