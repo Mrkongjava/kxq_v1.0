@@ -29,7 +29,7 @@ public class CommonUtils {
 	}
 	
 	/**
-	 * 将集合转换成数组
+	 * 将Integer集合转换成int数组
 	 * @param list 待转换的集合
 	 * @return
 	 */
