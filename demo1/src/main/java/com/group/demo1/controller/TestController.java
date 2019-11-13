@@ -1,6 +1,5 @@
 package com.group.demo1.controller;
 
-import com.group.common.core.annotation.ActionAnnotation;
 import com.group.demo1.service.impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -25,7 +24,7 @@ public class TestController {
 
     @RequestMapping("/test")
     @ResponseBody
-    @ActionAnnotation(params={"phone"},seconds = 15,maxCount = 5)
+//    @ActionAnnotation(params={"phone"},seconds = 15,maxCount = 5)
     public String test(HttpServletResponse response){
 
 //        Logger logger = LoggerFactory.getLogger(TestController.class);

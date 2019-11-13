@@ -92,11 +92,10 @@ public class SignInterceptor extends HandlerInterceptorAdapter {
             }else if((int)count < maxCount) {
                 redisTemplate.opsForValue().increment(requestKey);
             }else {
+                logger.info("客户端{}，存在恶意请求嫌疑",remortIP);
                 throw new ServiceException("1001","系统繁忙，请稍后访问");
             }
         }
-
-
 
         //参数签名
         if(encrypt){
@@ -122,7 +121,6 @@ public class SignInterceptor extends HandlerInterceptorAdapter {
                 throw new ServiceException(SysCode.NOT_LOGIN);
             }
         }
-
         request.setAttribute("params", params);
 		return true;
 	}
