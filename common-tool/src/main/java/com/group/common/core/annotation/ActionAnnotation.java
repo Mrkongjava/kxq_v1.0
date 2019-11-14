@@ -27,7 +27,12 @@ public @interface ActionAnnotation {
     
     String[] params() default {};       //请求参数
 
-    //限流操作
-    int seconds() default 0;//时间范围，单位秒
-    int maxCount() default  0;//时间范围内最多访问次数
+    //根据ip限流操作
+    int ipSeconds() default 0;//时间范围，单位秒
+    int ipMaxCount() default  0;//时间范围内最多访问次数
+
+    //根据token限流
+    int tokenSeconds() default 0;//时间范围，单位秒
+    int tokenMaxCount() default  0;//时间范围内最多访问次数
+
 }

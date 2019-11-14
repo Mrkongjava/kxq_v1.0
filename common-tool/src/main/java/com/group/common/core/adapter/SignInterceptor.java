@@ -24,15 +24,16 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 签名拦截器
+ *
  * @author lingdai
  * 2017-03-29
  */
 public class SignInterceptor extends HandlerInterceptorAdapter {
 
-	Logger logger = LoggerFactory.getLogger(SignInterceptor.class);
+    Logger logger = LoggerFactory.getLogger(SignInterceptor.class);
 
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String url = request.getRequestURL().toString();
         String method = request.getMethod();
@@ -44,9 +45,9 @@ public class SignInterceptor extends HandlerInterceptorAdapter {
         ActionAnnotation annotation = null;
         if (handler instanceof HandlerMethod) {
             //访问非静态资源
-            Method methods = ((HandlerMethod)handler).getMethod();
+            Method methods = ((HandlerMethod) handler).getMethod();
             annotation = methods.getAnnotation(ActionAnnotation.class);
-            if(annotation==null) {
+            if (annotation == null) {
                 return true;
             }
         } else {
@@ -58,13 +59,15 @@ public class SignInterceptor extends HandlerInterceptorAdapter {
         ActionAnnotation.Type type = annotation.check();
         String name = annotation.name();
         String[] paramKey = annotation.params();
-        int seconds = annotation.seconds();
-        int maxCount = annotation.maxCount();
-        
+        int ipSeconds = annotation.ipSeconds();
+        int ipMaxCount = annotation.ipMaxCount();
+        int tokenSeconds = annotation.tokenSeconds();
+        int tokenMaxCount = annotation.tokenMaxCount();
+
         Map<String, String> params = new HashMap<String, String>();
         for (int i = 0; i < paramKey.length; i++) {
             String param = request.getParameter(paramKey[i]);
-            if(!"sign".equals(paramKey[i])){
+            if (!"sign".equals(paramKey[i])) {
                 params.put(paramKey[i], param);
             }
             if (param != null) {
@@ -75,69 +78,86 @@ public class SignInterceptor extends HandlerInterceptorAdapter {
         }
 
         //根据ip限流
-        if (seconds != 0 && maxCount != 0){
+        if (ipSeconds != 0 && ipMaxCount != 0) {
 
             String requestKey = "";
-            if (remortIP.indexOf(":")>0){
+            if (remortIP.indexOf(":") > 0) {
                 requestKey = "current-limiting:" + Base64Util.encode(remortIP);
-            }else {
+            } else {
                 requestKey = "current-limiting:" + remortIP;
             }
 
             RedisTemplate redisTemplate = (RedisTemplate) SpringUtil.getBean("redisTemplate");
             Object count = redisTemplate.opsForValue().get(requestKey);
 
-            if(count  == null) {
-                redisTemplate.opsForValue().set(requestKey,1,seconds, TimeUnit.SECONDS);
-            }else if((int)count < maxCount) {
+            if (count == null) {
+                redisTemplate.opsForValue().set(requestKey, 1, ipSeconds, TimeUnit.SECONDS);
+            } else if ((int) count < ipMaxCount) {
                 redisTemplate.opsForValue().increment(requestKey);
-            }else {
-                logger.info("客户端{}，存在恶意请求嫌疑",remortIP);
-                throw new ServiceException("1001","系统繁忙，请稍后访问");
+            } else {
+                logger.info("客户端：{}，频繁请求，请注意", remortIP);
+                throw new ServiceException("1001", "系统繁忙，请稍后访问");
             }
         }
 
         //参数签名
-        if(encrypt){
+        if (encrypt) {
             String sign = request.getParameter("sign");
-            if(StringUtils.isNotEmpty(sign)){
+            if (StringUtils.isNotEmpty(sign)) {
                 String appSecert = MyWebAppConfig.environment.getProperty("ape.apikey");
                 String ascstr = SignUtils.getSign(params, appSecert, logger);
-                if(!sign.equals(ascstr)){
-                    throw new ServiceException("2000","签名错误");
+                if (!sign.equals(ascstr)) {
+                    throw new ServiceException("2000", "签名错误");
                 }
-            }else {
-                throw new ServiceException("2000","签名不能为空");
+            } else {
+                throw new ServiceException("2000", "签名不能为空");
             }
         }
 
         // 登录校验（用户H5的接口）
-        if (type == ActionAnnotation.Type.LOGIN || type == ActionAnnotation.Type.LOGIN_GROUP){
-            String token = request.getParameter("token");
+        if (type == ActionAnnotation.Type.LOGIN || type == ActionAnnotation.Type.LOGIN_GROUP) {
+            String token = request.getHeader("token");
+
+            //根据token限流
+            if (tokenSeconds != 0 && tokenMaxCount != 0) {
+
+                String requestKey = "current-limiting:" + token;
+                RedisTemplate redisTemplate = (RedisTemplate) SpringUtil.getBean("redisTemplate");
+                Object count = redisTemplate.opsForValue().get(requestKey);
+
+                if (count == null) {
+                    redisTemplate.opsForValue().set(requestKey, 1, tokenSeconds, TimeUnit.SECONDS);
+                } else if ((int) count < tokenMaxCount) {
+                    redisTemplate.opsForValue().increment(requestKey);
+                } else {
+                    logger.info("token：{}，频繁请求，请注意", token);
+                    throw new ServiceException("1001", "系统繁忙，请稍后访问");
+                }
+            }
 
             RedisTemplate redisTemplate = (RedisTemplate) SpringUtil.getBean("redisTemplate");
-            Object loginUser = redisTemplate.opsForHash().get("user:token:"+token,"user");
-            if(loginUser==null){
+            Object loginUser = redisTemplate.opsForHash().get("user:token:" + token, "user");
+            if (loginUser == null) {
                 throw new ServiceException(SysCode.NOT_LOGIN);
             }
         }
         request.setAttribute("params", params);
-		return true;
-	}
-	
-	@Override
-	public void postHandle(HttpServletRequest request,
+        return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request,
                            HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-		super.postHandle(request, response, handler, modelAndView);
-	}
-	
-	@Override
-	public void afterCompletion(HttpServletRequest request,
+        super.postHandle(request, response, handler, modelAndView);
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request,
                                 HttpServletResponse response, Object handler, Exception ex)
-			throws Exception {
-		super.afterCompletion(request, response, handler, ex);
-	}
+            throws Exception {
+        super.afterCompletion(request, response, handler, ex);
+    }
 
     public String getRemortIP(HttpServletRequest request) {
         if (request.getHeader("x-forwarded-for") == null) {
