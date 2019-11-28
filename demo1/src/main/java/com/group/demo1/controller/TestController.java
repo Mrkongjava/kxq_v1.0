@@ -1,5 +1,10 @@
 package com.group.demo1.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.github.binarywang.wxpay.bean.order.WxPayAppOrderResult;
+import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.github.binarywang.wxpay.exception.WxPayException;
+import com.github.binarywang.wxpay.service.WxPayService;
 import com.group.demo1.service.impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -21,6 +26,9 @@ public class TestController {
     private EmployeeServiceImpl employeeService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;//也可以使用 RedisTemplate
+    @Autowired
+    private WxPayService wxPayService;
+
 
     @RequestMapping("/test")
     @ResponseBody
@@ -39,7 +47,24 @@ public class TestController {
 //        String token = stringRedisTemplate.opsForValue().get("token");
 //        logger.info("token:{}",token);
 
-        return "HelloWord";
+        //测试微信支付
+        WxPayUnifiedOrderRequest payRequest = new WxPayUnifiedOrderRequest();
+        payRequest.setBody("xiangqinriji")
+                .setOutTradeNo("124567889012111")
+                .setTotalFee(1)
+                .setSpbillCreateIp("127.0.0.1")
+                .setNotifyUrl("http://www.baidu.com");
+        payRequest.setTradeType("APP");
+
+        WxPayAppOrderResult wxPayAppOrderResult = null;
+        try {
+            wxPayAppOrderResult = wxPayService.createOrder(payRequest);
+        } catch (WxPayException e) {
+            e.printStackTrace();
+        }
+
+
+        return JSON.toJSONString(wxPayAppOrderResult);
     }
 
     public static void main(String[] args) {
