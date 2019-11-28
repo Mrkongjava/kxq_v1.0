@@ -213,7 +213,45 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.17</version>
         </dependency>
+
+        <!--&lt;!&ndash;微信小程序&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.binarywang</groupId>-->
+            <!--<artifactId>weixin-java-miniapp</artifactId>-->
+            <!--<version>3.6.0</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash;微信支付&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.binarywang</groupId>-->
+            <!--<artifactId>weixin-java-pay</artifactId>-->
+            <!--<version>3.6.0</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash;微信开放平台&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.binarywang</groupId>-->
+            <!--<artifactId>weixin-java-open</artifactId>-->
+            <!--<version>3.6.0</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash;微信公众号和服务号&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.binarywang</groupId>-->
+            <!--<artifactId>weixin-java-mp</artifactId>-->
+            <!--<version>3.6.0</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash;企业号和微信&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.binarywang</groupId>-->
+            <!--<artifactId>weixin-java-cp</artifactId>-->
+            <!--<version>3.6.0</version>-->
+        <!--</dependency>-->
+
     </dependencies>
+
+
 
     <!--<build>-->
         <!--<plugins>-->
